@@ -15,10 +15,10 @@ class App extends React.Component {
   render() {
 
     if (this.props.loading) {
-      return <h1>Loading data</h1>
+      return <div className="App"><h1>Loading data</h1></div>
     }
     return (
-      <div>
+      <div className="App-header">
         <ConnectedTodos/>
         <ConnectedGoals/>
       </div>
