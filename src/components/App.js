@@ -1,27 +1,31 @@
-import React, {Component} from 'react';
-import '../App.css';
+import React from 'react'
+import {connect} from "react-redux"
+import {handleInitialData} from "../actions/shared"
+import '../App.css'
+import ConnectedGoals from './Goals'
+import ConnectedTodos from './Todos'
 
-class App extends Component {
+
+class App extends React.Component {
+  componentDidMount() {
+    const {dispatch} = this.props;
+    dispatch(handleInitialData())
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
 
-          <p>
-            Edit <code>src/components/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+    if (this.props.loading) {
+      return <h1>Loading data</h1>
+    }
+    return (
+      <div>
+        <ConnectedTodos/>
+        <ConnectedGoals/>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default connect(state => ({
+  loading: state.loading
+}))(App)
